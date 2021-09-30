@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import styled from 'react-emotion'
 import fontStyles from './font-styles'
 import { ActionsBlockProps } from '../types'
-import { DefaultButton, GreenButton } from './buttons'
+import { DefaultButton, BlackButton } from './buttons'
 
 interface RootProps {
   readonly backgroundColor: string
@@ -10,10 +10,13 @@ interface RootProps {
   readonly hideCloseButton: boolean
 }
 
-const Root = styled.div<RootProps>`
+const Root = styled<RootProps, 'section'>('section')`
   ${fontStyles};
   position: relative;
   padding: 8px;
+  margin: 8px;
+  border-radius: 8px;
+  box-shadow: rgb(0 0 0 / 28%) 0px 8px 28px;
   padding-right: ${props => (props.hideCloseButton ? '8px' : '40px')};
   background: ${props => props.backgroundColor};
   color: ${props => props.textColor};
@@ -86,6 +89,8 @@ interface Props {
   content: React.ReactNode
   subContent: React.ReactNode
   actionsBlock?: ((props: ActionsBlockProps) => React.ReactElement) | true
+  actionsBlockOkay?: string
+  actionsBlockCookiePreferences?: string
   backgroundColor: string
   textColor: string
   onAcceptAll: () => void
@@ -104,6 +109,8 @@ export default class Banner extends PureComponent<Props> {
       content,
       subContent,
       actionsBlock,
+      actionsBlockOkay,
+      actionsBlockCookiePreferences,
       backgroundColor,
       textColor,
       onAcceptAll,
@@ -118,7 +125,7 @@ export default class Banner extends PureComponent<Props> {
         textColor={textColor}
         hideCloseButton={hideCloseButton}
       >
-        <Content>
+        <Content className={'flex items-center'}>
           <P>{content}</P>
           <P>
             <button type="button" onClick={onChangePreferences}>
@@ -134,12 +141,12 @@ export default class Banner extends PureComponent<Props> {
           })}
         {actionsBlock === true && (
           <ActionsBlock>
-            <GreenButton type="button" onClick={onAcceptAll}>
-              Allow all
-            </GreenButton>
-            <DefaultButton type="button" onClick={onDenyAll}>
-              Deny all
+            <DefaultButton type="button" onClick={onChangePreferences}>
+              {actionsBlockCookiePreferences ?? 'Cookie Preferences'}
             </DefaultButton>
+            <BlackButton type="button" onClick={onAcceptAll}>
+              {actionsBlockOkay ?? 'Okay'}
+            </BlackButton>
           </ActionsBlock>
         )}
         {!hideCloseButton && (

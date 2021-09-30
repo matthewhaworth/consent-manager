@@ -42,6 +42,8 @@ interface ContainerProps {
   bannerContent: React.ReactNode
   bannerSubContent: React.ReactNode
   bannerActionsBlock?: ((props: ActionsBlockProps) => React.ReactElement) | true
+  actionsBlockOkay?: string
+  actionsBlockCookiePreferences?: string
   bannerTextColor: string
   bannerBackgroundColor: string
   bannerHideCloseButton: boolean
@@ -208,6 +210,8 @@ const Container: React.FC<ContainerProps> = props => {
           content={props.bannerContent}
           subContent={props.bannerSubContent}
           actionsBlock={props.bannerActionsBlock}
+          actionsBlockOkay={props.actionsBlockOkay}
+          actionsBlockCookiePreferences={props.actionsBlockCookiePreferences}
           textColor={props.bannerTextColor}
           backgroundColor={props.bannerBackgroundColor}
           onAcceptAll={onAcceptAll}

@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import styled, { css } from 'react-emotion'
 import Dialog from './dialog'
-import { DefaultButton, GreenButton } from './buttons'
+import { DefaultButton, BlackButton } from './buttons'
 import { Destination, CustomCategories, CategoryPreferences } from '../types'
 
 const hideOnMobile = css`
@@ -104,7 +104,7 @@ export default class PreferenceDialog extends PureComponent<PreferenceDialogProp
         <DefaultButton type="button" onClick={onCancel}>
           Cancel
         </DefaultButton>
-        <GreenButton type="submit">Save</GreenButton>
+        <BlackButton type="submit">Save</BlackButton>
       </div>
     )
     return (
