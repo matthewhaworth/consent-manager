@@ -11,6 +11,7 @@ import {
   DefaultDestinationBehavior,
   ActionsBlockProps
 } from '../types'
+import styled from 'react-emotion'
 
 const emitter = new EventEmitter()
 export function openDialog() {
@@ -200,24 +201,36 @@ const Container: React.FC<ContainerProps> = props => {
     props.resetPreferences()
   }
 
+  const Overlay = styled('div')`
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+  `
+
   return (
     <div>
       {showBanner && props.isConsentRequired && props.newDestinations.length > 0 && (
-        <Banner
-          innerRef={current => (banner = { current })}
-          onClose={onClose}
-          onChangePreferences={() => toggleDialog(true)}
-          content={props.bannerContent}
-          subContent={props.bannerSubContent}
-          actionsBlock={props.bannerActionsBlock}
-          actionsBlockOkay={props.actionsBlockOkay}
-          actionsBlockCookiePreferences={props.actionsBlockCookiePreferences}
-          textColor={props.bannerTextColor}
-          backgroundColor={props.bannerBackgroundColor}
-          onAcceptAll={onAcceptAll}
-          onDenyAll={onDenyAll}
-          hideCloseButton={props.bannerHideCloseButton}
-        />
+        <Overlay>
+          <Banner
+            innerRef={current => (banner = { current })}
+            onClose={onClose}
+            onChangePreferences={() => toggleDialog(true)}
+            content={props.bannerContent}
+            subContent={props.bannerSubContent}
+            actionsBlock={props.bannerActionsBlock}
+            actionsBlockOkay={props.actionsBlockOkay}
+            actionsBlockCookiePreferences={props.actionsBlockCookiePreferences}
+            textColor={props.bannerTextColor}
+            backgroundColor={props.bannerBackgroundColor}
+            onAcceptAll={onAcceptAll}
+            onDenyAll={onDenyAll}
+            hideCloseButton={props.bannerHideCloseButton}
+          />
+        </Overlay>
       )}
 
       {isDialogOpen && (
