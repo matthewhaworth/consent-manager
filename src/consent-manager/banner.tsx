@@ -12,7 +12,8 @@ interface RootProps {
 
 const Root = styled<RootProps, 'section'>('section')`
   ${fontStyles};
-  position: absolute;
+  position: fixed;
+  z-index: 9999;
   bottom: 0;
   left: 0;
   right: 0;
